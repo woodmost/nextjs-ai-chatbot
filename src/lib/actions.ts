@@ -21,7 +21,7 @@ export async function AddFreePoints() {
 
   await clerkClient.users.updateUserMetadata(user.id, {
     publicMetadata: {
-      points: 2,
+      points: process.env.CLERK_INIT_POINTS as string,
     },
   });
 
@@ -89,7 +89,7 @@ export async function RetrieveStripeCheckoutSession(sessionId: string) {
   console.log("session", session);
   await clerkClient.users.updateUserMetadata(user.id, {
     publicMetadata: {
-      points: 1,
+      points: process.env.CLERK_PREMIUM_POINTS,
       checkoutSessionIds: [...previousCheckoutSessionIds, sessionId],
       stripeCustomerId: session.customer,
       stripeSubscriptionId:

@@ -42,7 +42,7 @@ const SubscriptionDialog = (props: SubscriptionDialogProps) => {
   const handleSubmit = async () => {
     const lineItems = [
       {
-        price: process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIERE_API_ID,
+        price: process.env.NEXT_PUBLIC_STRIPE_PRODUCT_PREMIUM_API_ID,
         quantity: 1,
       },
     ];
