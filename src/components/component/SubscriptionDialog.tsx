@@ -29,7 +29,10 @@ const subscriptionPlans = [
     href: "#",
     price: { monthly: "$5" },
     description: "Support your team and get more points.",
-    features: ["100 Points", "Covers 100 conversations"],
+    features: [
+      `${process.env.NEXT_PUBLIC_CLERK_PREMIUM_POINTS} Points`,
+      `Covers ${process.env.NEXT_PUBLIC_CLERK_PREMIUM_POINTS} conversations`,
+    ],
   },
 ];
 
