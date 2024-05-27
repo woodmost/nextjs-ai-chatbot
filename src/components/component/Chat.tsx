@@ -34,7 +34,7 @@ const Chat = () => {
 
   const { openSignIn, session } = useClerk();
 
-  const { messages, input, isLoading, error, handleInputChange, handleSubmit } =
+  const { messages, input, isLoading, handleInputChange, handleSubmit } =
     useChat({
       initialMessages: [
         {
@@ -80,6 +80,27 @@ const Chat = () => {
         <MessageCircleIcon className="mx-auto mb-4 w-8 h-8" />
         How can I help you today?
       </h1>
+    );
+  };
+
+  const MessageContent = () => {
+    return filteredMessages.length > 0 ? (
+      filteredMessages?.map((m, index) => (
+        <li className="p-4 flex gap-3" key={index}>
+          <h3 className="text-sm font-bold">
+            <Avatar>
+              <AvatarFallback
+                className={m.role === "user" ? "" : "bg-black text-white"}
+              >
+                {m.role === "user" ? "You" : "AI"}
+              </AvatarFallback>
+            </Avatar>
+          </h3>
+          <p className="text-md mt-2">{m.content}</p>
+        </li>
+      ))
+    ) : (
+      <InitContent></InitContent>
     );
   };
 
@@ -148,25 +169,8 @@ const Chat = () => {
               className="relative w-5/6 lg:w-1/2 flex-1 my-6 mx-auto"
               ref={messagesEndRef}
             >
-              {!error && !isSignedIn && <InitContent></InitContent>}
-              <ul>
-                {filteredMessages.map((m, index) => (
-                  <li className="p-4 flex gap-3" key={index}>
-                    <h3 className="text-sm font-bold">
-                      <Avatar>
-                        <AvatarFallback
-                          className={
-                            m.role === "user" ? "" : "bg-black text-white"
-                          }
-                        >
-                          {m.role === "user" ? "You" : "AI"}
-                        </AvatarFallback>
-                      </Avatar>
-                    </h3>
-                    <p className="text-md mt-2">{m.content}</p>
-                  </li>
-                ))}
-              </ul>
+              {!isSignedIn && <InitContent></InitContent>}
+              <ul>{isSignedIn && <MessageContent />}</ul>
             </ScrollArea>
             <div className="w-5/6 lg:w-1/2 mx-auto mb-6 h-auto">
               <form className="flex gap-4" onSubmit={submit}>
